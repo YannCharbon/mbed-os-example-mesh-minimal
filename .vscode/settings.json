@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "pa.h": "c",
+        "chrono": "cpp"
+    }
+}

@@ -1,0 +1,45 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "➡️ Deploy environment",
+            "command": "mbed",
+            "args": ["deploy"]
+        },
+        {
+            "label": "🔨 Build program (GCC)",
+            "command": "mbed",
+            "args": ["compile", "-m", "EFR32_CUSTOM", "-t", "GCC_ARM"]
+        },
+        {
+            "label": "🔨🐞 Build program (GCC debug)",
+            "command": "mbed",
+            "args": ["compile", "--profile=debug", "-m", "EFR32_CUSTOM", "-t", "GCC_ARM"]
+        },
+        {
+            "label": "🚀 Flash board (GCC)",
+            "command": "pyocd",
+            "args": ["flash", "-t", "efr32mg12p433f1024gm68", "--base-address", "0x0", "${workspaceFolder}/BUILD/EFR32_CUSTOM/GCC_ARM/${workspaceFolderBasename}.bin"]
+        },
+        {
+            "label": "🚀🐞 Flash board (GCC debug)",
+            "command": "pyocd",
+            "args": ["flash", "-t", "efr32mg12p433f1024gm68", "--base-address", "0x0", "${workspaceFolder}/BUILD/EFR32_CUSTOM/GCC_ARM-DEBUG/${workspaceFolderBasename}.bin"]
+        },
+        {
+            "label": "🚀🐞 JLINK Flash board (GCC debug)",
+            "command": "flash_efr32custom.bat",
+            "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
+        },
+        {
+            "label": "⚙️ Show config",
+            "command": "mbed",
+            "args": ["compile", "-m", "EFR32_CUSTOM", "-t", "GCC_ARM", "--config"]
+        },
+        {
+            "label": "Start GDB server (OpenOCD)",
+            "command": "openocd",
+            "args": ["-f", "interface/jlink.cfg", "-c", "\"transport select swd\"", "-c", "\"adapter speed 4000\"", "-c", "\"bindto 0.0.0.0\"", "-f", "target/efm32.cfg"]
+        }
+    ]
+}

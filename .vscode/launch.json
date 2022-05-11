@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceFolder}",
+            "executable": "./BUILD/EFR32_CUSTOM/GCC_ARM-DEBUG/${workspaceFolderBasename}.elf",
+            "name": "Debug with JLink",
+            "request": "launch",
+            "type": "cortex-debug",
+            "device": "EFR32MG12PXXXF1024",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "servertype": "jlink"
+        },
+
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./BUILD/EFR32_CUSTOM/GCC_ARM-DEBUG/${workspaceFolderBasename}.elf",
+            "name": "Debug with OpenOCD",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "configFiles": ["target/efm32.cfg"],
+            "searchDir": ["${workspaceRoot}"],
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none"
+        },
+        {
+            "cwd": "${workspaceFolder}",
+            "executable": "./BUILD/EFR32_CUSTOM/GCC_ARM-DEBUG/${workspaceFolderBasename}.elf",
+            "name": "Debug with PyOCD",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "servertype": "pyocd",
+        }
+    ]
+}
