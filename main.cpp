@@ -27,6 +27,10 @@ void trace_printer(const char* str) {
     printf("%s\n", str);
 }
 
+#ifdef EFR32_CUSTOM_BOARD
+    DigitalOut enableVCOM(ENABLE_VCOM);
+#endif
+
 MeshInterface *mesh;
 
 static Mutex SerialOutMutex;
@@ -54,6 +58,12 @@ void serial_out_mutex_release()
 
 int main()
 {
+
+#ifdef EFR32_CUSTOM_BOARD
+    enableVCOM.write(1);
+#endif
+    
+    
     mbed_trace_init();
     mbed_trace_print_function_set(trace_printer);
     mbed_trace_mutex_wait_function_set( serial_out_mutex_wait );
@@ -66,6 +76,8 @@ int main()
 #ifdef MBED_MAJOR_VERSION
     printf("Mbed OS version: %d.%d.%d\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
 #endif
+
+    printf("Target: %s\n", MBED_STRINGIFY(TARGET_NAME));
 
 #if MBED_CONF_APP_ENABLE_LED_CONTROL_EXAMPLE
     if (MBED_CONF_APP_BUTTON != NC && MBED_CONF_APP_LED != NC) {

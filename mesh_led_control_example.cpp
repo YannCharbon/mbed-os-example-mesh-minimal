@@ -31,10 +31,20 @@ static void handle_message(char* msg);
 
 #define multicast_addr_str "ff15::810a:64d1"
 #define TRACE_GROUP "example"
-#define UDP_PORT 1234
+#define UDP_PORT 8080
 #define MESSAGE_WAIT_TIMEOUT (30.0)
 #define MASTER_GROUP 0
 #define MY_GROUP 1
+
+void app_print(const char *fmt, ...) {
+    va_list args;
+    printf("\033[0;32m");
+    printf("[APP] : ");
+    printf("\033[0m");
+    va_start(args, fmt);
+    vprintf(fmt, args);
+    va_end(args);
+}
 
 DigitalOut led_1(MBED_CONF_APP_LED, 1);
 InterruptIn my_button(MBED_CONF_APP_BUTTON);
@@ -56,7 +66,7 @@ static const int16_t multicast_hops = 10;
 bool button_status = 0;
 
 void start_mesh_led_control_example(NetworkInterface * interface){
-    tr_debug("start_mesh_led_control_example()");
+    app_print("start_mesh_led_control_example()\n");
     MBED_ASSERT(MBED_CONF_APP_LED != NC);
     MBED_ASSERT(MBED_CONF_APP_BUTTON != NC);
 
@@ -79,7 +89,7 @@ void cancel_blinking() {
 }
 
 static void send_message() {
-    tr_debug("send msg %d", button_status);
+    app_print("send msg %d\n", button_status);
 
     char buf[20];
     int length;
@@ -93,7 +103,7 @@ static void send_message() {
     */
     length = snprintf(buf, sizeof(buf), "t:lights;g:%03d;s:%s;", MY_GROUP, (button_status ? "1" : "0")) + 1;
     MBED_ASSERT(length > 0);
-    tr_debug("Sending lightcontrol message, %d bytes: %s", length, buf);
+    app_print("Sending lightcontrol message, %d bytes: %s\n", length, buf);
     SocketAddress send_sockAddr(multi_cast_addr, NSAPI_IPv6, UDP_PORT);
     my_socket->sendto(send_sockAddr, buf, 20);
     //After message is sent, it is received from the network
@@ -107,23 +117,23 @@ static void my_button_isr() {
 
 static void update_state(uint8_t state) {
     if (state == 1) {
-       tr_debug("Turning led on\n");
+       app_print("Turning led on\n");
        led_1 = 0;
        button_status=1;
        if (MBED_CONF_APP_RELAY_CONTROL != NC) {
           output = 0;
        } else {
-          printf("Pins not configured. Skipping the RELAY control.\n");
+          app_print("Pins not configured. Skipping the RELAY control.\n");
        }
     }
     else {
-       tr_debug("Turning led off\n");
+       app_print("Turning led off\n");
        led_1 = 1;
        button_status=0;
        if (MBED_CONF_APP_RELAY_CONTROL != NC) {
           output = 1;
        } else {
-          printf("Pins not configured. Skipping the RELAY control.\n");
+          app_print("Pins not configured. Skipping the RELAY control.\n");
        }
     }
 }
@@ -167,9 +177,9 @@ static void receive() {
         int length = my_socket->recvfrom(&source_addr, receive_buffer, sizeof(receive_buffer) - 1);
         if (length > 0) {
             int timeout_value = MESSAGE_WAIT_TIMEOUT;
-            tr_debug("Packet from %s\n", source_addr.get_ip_address());
+            app_print("Packet from %s\n", source_addr.get_ip_address());
             timeout_value += rand() % 30;
-            tr_debug("Advertisiment after %d seconds", timeout_value);
+            app_print("Advertisiment after %d seconds\n", timeout_value);
             queue.cancel(queue_handle);
             queue_handle = queue.call_in((timeout_value * 1000), send_message);
             // Handle command - "on", "off"
