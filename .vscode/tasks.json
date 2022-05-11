@@ -2,9 +2,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "➡️ Deploy environment",
-            "command": "mbed",
-            "args": ["deploy"]
+            "label": "➡️ Deploy/Update environment and libraries (Windows)",
+            "command": "vscode_deploy_windows.bat",
+            "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
+        },
+        {
+            "label": "➡️🐧 Deploy/Update environment and libraries (Linux)",
+            "command": "vscode_deploy_linux.sh",
+            "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
         },
         {
             "label": "🔨 Build program (GCC)",
@@ -22,14 +27,19 @@
             "args": ["flash", "-t", "efr32mg12p433f1024gm68", "--base-address", "0x0", "${workspaceFolder}/BUILD/EFR32_CUSTOM/GCC_ARM/${workspaceFolderBasename}.bin"]
         },
         {
+            "label": "🚀🐞 JLINK Flash board (GCC)",
+            "command": "jlink",
+            "args": ["-device", "efr32mg12p433f1024gm68", "-autoconnect", "1", "-NoGui", "0", "-if", "SWD", "-Speed", "4000", "-CommandFile", "flashefr32custom.jlink"]
+        },
+        {
             "label": "🚀🐞 Flash board (GCC debug)",
             "command": "pyocd",
             "args": ["flash", "-t", "efr32mg12p433f1024gm68", "--base-address", "0x0", "${workspaceFolder}/BUILD/EFR32_CUSTOM/GCC_ARM-DEBUG/${workspaceFolderBasename}.bin"]
         },
         {
             "label": "🚀🐞 JLINK Flash board (GCC debug)",
-            "command": "flash_efr32custom.bat",
-            "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
+            "command": "jlink",
+            "args": ["-device", "efr32mg12p433f1024gm68", "-autoconnect", "1", "-NoGui", "0", "-if", "SWD", "-Speed", "4000", "-CommandFile", "flashefr32custom_debug.jlink"]
         },
         {
             "label": "⚙️ Show config",
