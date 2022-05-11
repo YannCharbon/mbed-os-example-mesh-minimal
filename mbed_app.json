@@ -6,55 +6,54 @@
         "RELAY_CONTROL": "NC",
         "BUTTON_MODE": "PullUp"
     },
+    "macros": ["MBEDTLS_USER_CONFIG_FILE=\"mbedtls_wisun_config.h\""],
     "target_overrides": {
         "*": {
-            "nanostack.configuration": "lowpan_router",
-            "nsapi.default-mesh-type": "LOWPAN",
-            "mbed-mesh-api.6lowpan-nd-panid-filter": "0xffff",
-            "mbed-mesh-api.6lowpan-nd-channel-page": 0,
-            "mbed-mesh-api.6lowpan-nd-channel": 12,
-            "mbed-mesh-api.6lowpan-nd-channel-mask": "(1<<12)",
-            "mbed-mesh-api.heap-size": 14000,
-            "mbed-trace.enable": false,
-            "platform.stdio-convert-newlines": true,
+            "nsapi.default-mesh-type": "WISUN",
+            "mbed-mesh-api.wisun-network-name": "\"Wi-SUN Network\"",
+            "nanostack.configuration": "ws_router",
+            "mbed-mesh-api.certificate-header": "\"wisun_certificates.h\"",
+            "mbed-mesh-api.root-certificate": "WISUN_ROOT_CERTIFICATE",
+            "mbed-mesh-api.own-certificate": "WISUN_CLIENT_CERTIFICATE",
+            "mbed-mesh-api.own-certificate-key": "WISUN_CLIENT_KEY",
+            "mbed-trace.enable": true,
+            "mbed-trace.max-level": "TRACE_LEVEL_INFO",
+            "platform.stdio-convert-newlines": false,
             "platform.stdio-baud-rate": 115200,
-            "atmel-rf.provide-default": true,
-            "mcr20a.provide-default": false,
-            "target.device_has_add": ["802_15_4_PHY"],
-            "target.network-default-interface-type": "MESH"
+            "platform.stdio-buffered-serial": true,            
+            "target.device_has_add": ["802_15_4_PHY"]
         },
         "K64F": {
             "LED": "LED1",
-            "BUTTON": "BUTTON1"
+            "BUTTON": "SW2"
         },
         "K66F": {
             "LED": "LED1",
-            "BUTTON": "BUTTON1"
-        },
-        "KW24D": {
-            "LED": "LED1",
-            "BUTTON": "BUTTON1"
-        },
-        "KW41Z": {
-            "LED": "LED1",
-            "BUTTON": "BUTTON1"
-        },
-        "NUCLEO_F401RE": {
-            "LED": "NC",
-            "BUTTON": "BUTTON1"
+            "BUTTON": "SW2"
         },
         "NUCLEO_F429ZI":  {
             "LED": "LED1",
             "BUTTON": "BUTTON1",
-            "BUTTON_MODE": "PullDown"
+            "BUTTON_MODE": "PullDown",
+            "s2lp.provide-default": true
         },
-        "NUCLEO_F411RE": {
-            "LED": "NC",
-            "BUTTON": "BUTTON1"
-        },
-        "NCS36510": {
+        "NUCLEO_L486RG":  {
             "LED": "LED1",
-            "BUTTON": "BUTTON1"
+            "BUTTON": "BUTTON1",
+            "mbed-mesh-api.heap-size": 27000,
+            "s2lp.provide-default": true
+        },
+        "EFR32_CUSTOM": {
+            "LED": "LED1",
+            "BUTTON": "BUTTON1",
+            "mbed-mesh-api.wisun-uc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
+            "mbed-mesh-api.wisun-uc-fixed-channel": 20,
+            "mbed-mesh-api.wisun-bc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
+            "mbed-mesh-api.wisun-bc-fixed-channel": 30,
+            "mbed-mesh-api.wisun-regulatory-domain": 3,
+            "mbed-mesh-api.wisun-operating-class": 2,
+            "mbed-mesh-api.wisun-operating-mode": 3,
+            "s2lp.provide-default": false
         }
     }
 }
