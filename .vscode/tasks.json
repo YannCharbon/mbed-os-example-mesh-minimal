@@ -12,6 +12,10 @@
             "args": ["EFR32_CUSTOM", "${workspaceFolderBasename}"]
         },
         {
+            "label": "===== BUILD EFR32 =====",
+            "command": ""
+        },
+        {
             "label": "🔨 Build program (GCC)",
             "command": "mbed",
             "args": ["compile", "-m", "EFR32_CUSTOM", "-t", "GCC_ARM"]
@@ -22,19 +26,22 @@
             "args": ["compile", "--profile=debug", "-m", "EFR32_CUSTOM", "-t", "GCC_ARM"]
         },
         {
-            "label": "🚀 Flash board (GCC)",
-            "command": "pyocd",
-            "args": ["flash", "-t", "efr32mg12p433f1024gm68", "--base-address", "0x0", "${workspaceFolder}/BUILD/EFR32_CUSTOM/GCC_ARM/${workspaceFolderBasename}.bin"]
+            "label": "===== BUILD NUCLEO L486 =====",
+            "command": ""
         },
         {
-            "label": "🚀🐞 JLINK Flash board (GCC)",
+            "label": "🔨🐞 Build program (GCC debug)",
+            "command": "mbed",
+            "args": ["compile", "--profile=debug", "-m", "NUCLEO_L486RG", "-t", "GCC_ARM"]
+        },
+        {
+            "label": "===== EFR32 Flash (Windows) =====",
+            "command": ""
+        },
+        {
+            "label": "🚀 JLINK Flash board (GCC)",
             "command": "jlink",
             "args": ["-device", "efr32mg12p433f1024gm68", "-autoconnect", "1", "-NoGui", "0", "-if", "SWD", "-Speed", "4000", "-CommandFile", "flashefr32custom.jlink"]
-        },
-        {
-            "label": "🚀🐞 Flash board (GCC debug)",
-            "command": "pyocd",
-            "args": ["flash", "-t", "efr32mg12p433f1024gm68", "--base-address", "0x0", "${workspaceFolder}/BUILD/EFR32_CUSTOM/GCC_ARM-DEBUG/${workspaceFolderBasename}.bin"]
         },
         {
             "label": "🚀🐞 JLINK Flash board (GCC debug)",
@@ -42,14 +49,41 @@
             "args": ["-device", "efr32mg12p433f1024gm68", "-autoconnect", "1", "-NoGui", "0", "-if", "SWD", "-Speed", "4000", "-CommandFile", "flashefr32custom_debug.jlink"]
         },
         {
-            "label": "⚙️ Show config",
+            "label": "===== EFR32 Flash (Linux) =====",
+            "command": ""
+        },
+        {
+            "label": "🐧🚀 JLINK Flash board (GCC)",
+            "command": "JLinkExe",
+            "args": ["-device", "efr32mg12p433f1024gm68", "-autoconnect", "1", "-NoGui", "0", "-if", "SWD", "-Speed", "4000", "-CommandFile", "flashefr32custom.jlink"]
+        },
+        {
+            "label": "🐧🚀🐞 JLINK Flash board (GCC debug)",
+            "command": "JLinkExe",
+            "args": ["-device", "efr32mg12p433f1024gm68", "-autoconnect", "1", "-NoGui", "0", "-if", "SWD", "-Speed", "4000", "-CommandFile", "flashefr32custom_debug.jlink"]
+        },
+        {
+            "label": "===== NUCLEO L486 Flash (Linux) =====",
+            "command": ""
+        },
+        {
+            "label": "🚀🐞 Openocd flash (GCC debug) L486",
+            "command": "flash_stm32l486disco.bat",
+            "args": ["${workspaceFolderBasename}"]
+        },
+        {
+            "label": "===== Configs =====",
+            "command": ""
+        },
+        {
+            "label": "⚙️ Show config EFR32",
             "command": "mbed",
             "args": ["compile", "-m", "EFR32_CUSTOM", "-t", "GCC_ARM", "--config"]
         },
         {
-            "label": "Start GDB server (OpenOCD)",
-            "command": "openocd",
-            "args": ["-f", "interface/jlink.cfg", "-c", "\"transport select swd\"", "-c", "\"adapter speed 4000\"", "-c", "\"bindto 0.0.0.0\"", "-f", "target/efm32.cfg"]
+            "label": "⚙️ Show config L486",
+            "command": "mbed",
+            "args": ["compile", "-m", "NUCLEO_L486RG", "-t", "GCC_ARM", "--config"]
         }
     ]
 }

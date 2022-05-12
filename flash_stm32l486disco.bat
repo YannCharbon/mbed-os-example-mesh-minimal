@@ -1,0 +1,1 @@
+openocd -f board/st_nucleo_l4.cfg -c "program BUILD/NUCLEO_L486RG/GCC_ARM-DEBUG/%1.bin 0x08000000" -c "reset run" -c "shutdown"
