@@ -42,24 +42,26 @@
             "BUTTON": "BUTTON1",
             "mbed-mesh-api.heap-size": 27000,
             "mbed-mesh-api.wisun-uc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
-            "mbed-mesh-api.wisun-uc-fixed-channel": 20,
+            "mbed-mesh-api.wisun-uc-fixed-channel": 0,
             "mbed-mesh-api.wisun-bc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
-            "mbed-mesh-api.wisun-bc-fixed-channel": 30,
+            "mbed-mesh-api.wisun-bc-fixed-channel": 0,
             "mbed-mesh-api.wisun-regulatory-domain": 3,
             "mbed-mesh-api.wisun-operating-class": 2,
-            "mbed-mesh-api.wisun-operating-mode": 3,
+            "mbed-mesh-api.wisun-operating-mode": "0x2a",
+            "mbed-mesh-api.wisun-network-size": 1,
             "s2lp.provide-default": true
         },
         "EFR32_CUSTOM": {
             "LED": "LED1",
             "BUTTON": "BUTTON1",
             "mbed-mesh-api.wisun-uc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
-            "mbed-mesh-api.wisun-uc-fixed-channel": 20,
+            "mbed-mesh-api.wisun-uc-fixed-channel": 0,
             "mbed-mesh-api.wisun-bc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
-            "mbed-mesh-api.wisun-bc-fixed-channel": 30,
+            "mbed-mesh-api.wisun-bc-fixed-channel": 0,
             "mbed-mesh-api.wisun-regulatory-domain": 3,
             "mbed-mesh-api.wisun-operating-class": 2,
-            "mbed-mesh-api.wisun-operating-mode": 3,
+            "mbed-mesh-api.wisun-operating-mode": "0x2a",
+            "mbed-mesh-api.wisun-network-size": 1,
             "s2lp.provide-default": false
         }
     }
