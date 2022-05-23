@@ -19,9 +19,7 @@
 #include "mbed-trace/mbed_trace.h"
 #include "mesh_nvm.h"
 
-#if MBED_CONF_APP_ENABLE_LED_CONTROL_EXAMPLE
-#include "mesh_led_control_example.h"
-#endif
+#include "simple_udp_app.h"
 
 void trace_printer(const char* str) {
     printf("%s\n", str);
@@ -56,6 +54,7 @@ void serial_out_mutex_release()
     SerialOutMutex.unlock();
 }
 
+
 int main()
 {
 
@@ -79,13 +78,6 @@ int main()
 
     printf("Target: %s\n", MBED_STRINGIFY(TARGET_NAME));
 
-#if MBED_CONF_APP_ENABLE_LED_CONTROL_EXAMPLE
-    if (MBED_CONF_APP_BUTTON != NC && MBED_CONF_APP_LED != NC) {
-        start_blinking();
-    } else {
-        printf("pins not configured. Skipping the LED control.\n");
-    }
-#endif
     mesh = MeshInterface::get_default_instance();
     if (!mesh) {
         printf("Error! MeshInterface not found!\n");
@@ -107,11 +99,8 @@ int main()
 
     printf("Connected. IP = %s\n", sockAddr.get_ip_address());
 
-#if MBED_CONF_APP_ENABLE_LED_CONTROL_EXAMPLE
-    // Network found, start socket example
-    if (MBED_CONF_APP_BUTTON != NC && MBED_CONF_APP_LED != NC) {
-        cancel_blinking();
-        start_mesh_led_control_example((NetworkInterface *)mesh);
-    }
-#endif
+    start_simple_udp_app(mesh);    
+
 }
+
+
