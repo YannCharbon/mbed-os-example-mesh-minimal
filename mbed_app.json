@@ -2,7 +2,8 @@
     "config": {
         "enable-led-control-example": true,
         "LED": "NC",
-        "BUTTON": "NC",
+        "BUTTON_1": "NC",
+        "BUTTON_2": "NC",
         "RELAY_CONTROL": "NC",
         "BUTTON_MODE": "PullUp"
     },
@@ -38,12 +39,12 @@
             "s2lp.provide-default": true
         },
         "NUCLEO_L486RG":  {
-            "LED": "LED1",
-            "BUTTON": "BUTTON1",
-            "mbed-mesh-api.heap-size": 27000,
-            "mbed-mesh-api.wisun-uc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
+            "LED": "ARDUINO_UNO_D14",
+            "BUTTON_1": "BUTTON1",
+            "mbed-mesh-api.heap-size": 28000,
+            "mbed-mesh-api.wisun-uc-channel-function": "0xFF",
             "mbed-mesh-api.wisun-uc-fixed-channel": 0,
-            "mbed-mesh-api.wisun-bc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
+            "mbed-mesh-api.wisun-bc-channel-function": "0xFF",
             "mbed-mesh-api.wisun-bc-fixed-channel": 0,
             "mbed-mesh-api.wisun-regulatory-domain": 3,
             "mbed-mesh-api.wisun-operating-class": 2,
@@ -53,10 +54,11 @@
         },
         "EFR32_CUSTOM": {
             "LED": "LED1",
-            "BUTTON": "BUTTON1",
-            "mbed-mesh-api.wisun-uc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
+            "BUTTON_1": "BUTTON1",
+            "BUTTON_2": "BUTTON2",
+            "mbed-mesh-api.wisun-uc-channel-function": "0xFF",
             "mbed-mesh-api.wisun-uc-fixed-channel": 0,
-            "mbed-mesh-api.wisun-bc-channel-function": "MESH_CHANNEL_FUNCTION_FIXED",
+            "mbed-mesh-api.wisun-bc-channel-function": "0xFF",
             "mbed-mesh-api.wisun-bc-fixed-channel": 0,
             "mbed-mesh-api.wisun-regulatory-domain": 3,
             "mbed-mesh-api.wisun-operating-class": 2,

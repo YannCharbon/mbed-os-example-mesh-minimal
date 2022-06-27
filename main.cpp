@@ -21,6 +21,9 @@
 
 #include "simple_udp_app.h"
 
+#include "mbed-os/connectivity/nanostack/sal-stack-nanostack/nanostack/net_interface.h"
+
+
 void trace_printer(const char* str) {
     printf("%s\n", str);
 }
@@ -54,21 +57,19 @@ void serial_out_mutex_release()
     SerialOutMutex.unlock();
 }
 
-
 int main()
 {
 
 #ifdef EFR32_CUSTOM_BOARD
     enableVCOM.write(1);
-#endif
-    
+#endif 
     
     mbed_trace_init();
     mbed_trace_print_function_set(trace_printer);
     mbed_trace_mutex_wait_function_set( serial_out_mutex_wait );
     mbed_trace_mutex_release_function_set( serial_out_mutex_release );
 
-    printf("Start mesh-minimal application\n");
+    printf("Start mesh-minimal application | UDP app\n");
 
 #define STR(s) #s
     printf("Build: %s %s\nMesh type: %s\n", __DATE__, __TIME__, STR(MBED_CONF_NSAPI_DEFAULT_MESH_TYPE));
@@ -98,6 +99,32 @@ int main()
         ThisThread::sleep_for(500);
 
     printf("Connected. IP = %s\n", sockAddr.get_ip_address());
+
+    SocketAddress gw_sockAddr;
+    int ret;
+    ret = mesh->get_gateway(&gw_sockAddr);
+    switch(ret){
+        case NSAPI_ERROR_UNSUPPORTED:
+            printf("Gateway IP : NSAPI_ERROR_UNSUPPORTED\n");
+            break;
+        case NSAPI_ERROR_PARAMETER:
+            printf("Gateway IP : NSAPI_ERROR_PARAMETER\n");
+            break;
+        case NSAPI_ERROR_NO_ADDRESS:
+            printf("Gateway IP : NSAPI_ERROR_NO_ADDRESS\n");
+            break;
+        case NSAPI_ERROR_OK:
+            printf("Gateway IP = %s\n", gw_sockAddr.get_ip_address());
+            break;
+        default:
+            break;
+    }  
+
+    printf("==== ROUTING TABLE ====\n");
+
+    arm_print_routing_table();  
+
+    printf("\n");
 
     start_simple_udp_app(mesh);    
 

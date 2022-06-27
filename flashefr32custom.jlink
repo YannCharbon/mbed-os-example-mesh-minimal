@@ -1,5 +1,5 @@
 halt
-loadbin BUILD/EFR32_CUSTOM/GCC_ARM-DEBUG/mesh-minimal-github.bin,0x0
+loadbin BUILD/EFR32_CUSTOM/GCC_ARM/mbed-os-example-mesh-minimal.bin,0x0
 setpc 0x0
 reset
 go
