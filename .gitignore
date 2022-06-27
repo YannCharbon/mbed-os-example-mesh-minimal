@@ -3,4 +3,5 @@ mbed-os/
 flashefr32custom_debug.jlink
 flashefr32custom.jlink
 .mbed
+*.txt
 
